@@ -1,27 +1,48 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico">
 <title>doll_123321</title>
 <style>
 body{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;max-width:640px;margin:0 auto;padding:20px;background:#fafafa;color:#222;}
 img{width:100%;height:auto;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.1);display:block;}
 h1{font-size:22px;margin:20px 0 10px;}
 p{font-size:16px;line-height:1.5;color:#444;}
+.langbar{margin:20px 0;text-align:center;}
+.langbar button{margin:0 4px;padding:8px 16px;border:1px solid #ccc;background:#fff;border-radius:6px;font-size:15px;cursor:pointer;}
+.langbar button:hover{background:#f0f0f0;}
+.share{margin-top:20px;text-align:center;}
+.share button{padding:10px 20px;border:none;border-radius:6px;background:#2a7ae2;color:#fff;font-size:15px;cursor:pointer;}
 </style>
 </head>
 <body>
-<img id="photo" src="../photos/doll_123321.jpg" alt="Doll">
+<img id="photo" src="../photos/doll_123321.jpg" alt="Doll" loading="lazy">
 <h1 id="name"></h1>
 <p id="desc"></p>
+<div class="langbar">
+  <button onclick="setLang('ru')">RU</button>
+  <button onclick="setLang('en')">EN</button>
+  <button onclick="setLang('de')">DE</button>
+</div>
+<div class="share">
+  <button onclick="shareIt()">Поделиться</button>
+</div>
 <script>
-var dataName = {"ru":"���","en":"Asya","de":"Asja"};
-var dataDesc = {"ru":"���������� ����� ǀ��� ������� �������� ��������� �������� ���������� �������. ����� ������� ��������� ������ ��������� ����� ��� ����. ����� ����� � ����������� ������������ ������ ������� �������� ������� ������������� �������� ����� XVIII � ������ XIX ����. � ������ ���������� ���������� ������: ������� �����, �����, �������� ����, ���������. ������ ������ ��������� ������� � ��������� ������������ ������ ��� �����.","en":"The porcelain doll \"Asya\" was created by the world-famous artist Hildegard G?nzel. The artist worked on the image of the Russian beauty for almost three years. The doll wears the festive peasant costume of a young married woman from the Nizhny Novgorod province of the late 18th � early 19th century. Every detail of the outfit � patterned fabric, ribbons, headdress, and jewelry � is reproduced with the utmost care and follows the historical costume of that era.","de":"Die Porzellanpuppe �Asja� wurde von der weltber?hmten K?nstlerin Hildegard G?nzel geschaffen. An dem Bild der russischen Sch?nheit arbeitete die K?nstlerin fast drei Jahre. Die Puppe tr?gt das festliche Bauernkost?m einer jungen verheirateten Frau aus dem Gouvernement Nischni Nowgorod des sp?ten 18. � fr?hen 19. Jahrhunderts. Jedes Detail des Outfits � gemusterter Stoff, B?nder, Kopfschmuck und Schmuck � ist mit gr??ter Sorgfalt ausgef?hrt und folgt dem historischen Kost?m jener Epoche."};
+var dataName = {"ru":"Ася","en":"Asya","de":"Asja"};
+var dataDesc = {"ru":"Фарфоровая кукла «Ася» создана всемирно известным мастером Хильдегард Гюнцель. Образ русской красавицы мастер создавала почти три года. Кукла одета в праздничный крестьянский костюм молодой замужней женщины Нижегородской губернии конца XVIII — начала XIX века. В наряде воссозданы мельчайшие детали: узорная ткань, ленты, головной убор, украшения. Каждая деталь выполнена вручную и повторяет исторический костюм той эпохи.","en":"The porcelain doll \"Asya\" was created by the world-famous artist Hildegard G?nzel. The artist worked on the image of the Russian beauty for almost three years. The doll wears the festive peasant costume of a young married woman from the Nizhny Novgorod province of the late 18th — early 19th century. Every detail of the outfit — patterned fabric, ribbons, headdress, and jewelry — is reproduced with the utmost care and follows the historical costume of that era.","de":"Die Porzellanpuppe „Asja“ wurde von der weltber?hmten K?nstlerin Hildegard G?nzel geschaffen. An dem Bild der russischen Sch?nheit arbeitete die K?nstlerin fast drei Jahre. Die Puppe tr?gt das festliche Bauernkost?m einer jungen verheirateten Frau aus dem Gouvernement Nischni Nowgorod des sp?ten 18. — fr?hen 19. Jahrhunderts. Jedes Detail des Outfits — gemusterter Stoff, B?nder, Kopfschmuck und Schmuck — ist mit gr??ter Sorgfalt ausgef?hrt und folgt dem historischen Kost?m jener Epoche."};
+function render(l) {
+  document.getElementById('name').textContent = dataName[l] || dataName['ru'] || '';
+  document.getElementById('desc').textContent = dataDesc[l] || dataDesc['ru'] || '';
+}
+function setLang(l) { render(l); }
+function shareIt() {
+  if (navigator.share) navigator.share({title: document.title, url: location.href});
+  else alert('Скопируйте ссылку: ' + location.href);
+}
 var lang = (navigator.language || 'ru').slice(0,2).toLowerCase();
-function pick(o){ if(!o) return ''; return o[lang] || o['ru'] || o['en'] || ''; }
-document.getElementById('name').textContent = pick(dataName);
-document.getElementById('desc').textContent = pick(dataDesc);
+render(lang);
 </script>
 </body>
 </html>
